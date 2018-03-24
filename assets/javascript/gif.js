@@ -4,7 +4,26 @@ var topics = ['vikings', 'packers', 'bears', 'lions', 'eagles', 'cowboys', 'reds
 var searchTeam;
 var searchTerm;
 
+
+
+function displayTeam() {
+
+    var team = $(this).attr("data-name");
+    var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response) {
+      $("#movies-view").text(JSON.stringify(response));
+      renderButtons();
+    });
+  }
+
+
 function renderButtons() {
+$("#gifbuttons").empty();
+
 for (i = 0; i < topics.length; i++) {
 
     teamName = topics[i];
@@ -28,7 +47,7 @@ $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-      console.log(response)
+      
 
 
 
