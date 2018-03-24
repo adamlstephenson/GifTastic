@@ -18,6 +18,8 @@ for (i = 0; i < topics.length; i++) {
 }
 }
 
+
+
 queryURL = "https://api.giphy.com/v1/gifs/search?&api_key=RgOKKocZs8kcyzsU7F1E4hNZms3pjHFu&limit=10";
 queryURL += "&q=" + searchTerm;
 
