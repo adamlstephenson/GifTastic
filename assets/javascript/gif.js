@@ -1,29 +1,8 @@
 $("document").ready(function() {
 
-var topics = ['vikings', 'packers', 'bears', 'lions', 'eagles', 'cowboys', 'redskins', 'giants', 'saints', 'panthers', 'falcons', 'buccaneers', 'cardinals', '49ers', 'seahawks', 'rams'];
-var searchTeam;
-var searchTerm;
+var topics = ['Minnesota Vikings', 'Green Bay Packers', 'Chicago Bears', 'Destroit Lions', 'Philadelphia Eagles', 'Dallas Cowboys', 'Washington Redskins', 'New York Giants', 'New Orleans Saints', 'Carolina Panthers', 'Atlanta Falcons', 'Tampa Bay Buccaneers', 'Arizona Cardinals', 'San Francisco 49ers', 'Seattle Seahawks', 'Los Angeles Rams'];
 
 
-
-function displayTeam() {
-
-    var team = $("<button>").attr("data-name");
-    console.log(team);
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + team + "&api_key=RgOKKocZs8kcyzsU7F1E4hNZms3pjHFu&limit=10";
-
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response) {
-        console.log(response.data[0].images.original.url)
-      teamImage = response.data[0].images.original.url
-      var images = $("<img>").html(teamImage)
-      $("#gifcontainer").append(images);
-      renderButtons();
-    });
-    
-  }
 
 function renderButtons() {
 
@@ -34,45 +13,53 @@ function renderButtons() {
         teamName = topics[i];
 
         var buttons = $("<button>");
+        buttons.addClass("team");
         buttons.attr("value", teamName);
         buttons.text(teamName);
         $("#gifbuttons").append(buttons);
 }
 }
 
+function buttonCreator() { 
+    $("button.team").on("click", function() {
+        var x = $(this).val();
+
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + x + "&api_key=RgOKKocZs8kcyzsU7F1E4hNZms3pjHFu&limit=10";
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response) {
+
+            for(j = 0; j < response.data.length; j++){
+                var rating = response.data[j].rating;
+                var imageURL = response.data[j].images.downsized.url;
+                var gifImage = $("<img src='"+ imageURL +"'>")
+                $("#gifContainer").prepend("<p> Rating: " + rating + "</p>");
+                $("#gifContainer").prepend(gifImage);
+            }
+
+        })
+
+    })
+ }
 
 
-      
-
-
-  renderButtons();
-
-  $("button").on("click", function() {
-    var x = $(this).val();
-    console.log(x);
-
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + x + "&api_key=RgOKKocZs8kcyzsU7F1E4hNZms3pjHFu&limit=10";
-    console.log(queryURL)
-
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-      }).then(function(response) {
-
-        for(j = 0; j < response.data.length; j++){
-            var rating = response.data[j].rating;
-            var imageURL = response.data[j].images.downsized.url;
-            var gifImage = $("<img src='"+ imageURL +"'>")
-            $("#gifContainer").append("<p> Rating: " + rating + "</p>");
-            $("#gifContainer").append(gifImage);
-        }
-
-      })
-
-})
+renderButtons();
+buttonCreator();
 
 
 
+    $("#submitButton").on("click", function () {
+        event.preventDefault();
+           var searchTerm = $(".form-control").val().trim();
+           var newButton = $("<button>");
+           newButton.addClass("team");
+           newButton.attr("value", searchTerm);
+           newButton.text(searchTerm);
+           $("#gifbuttons").append(newButton);
+           buttonCreator();
+    })
 
 
 
