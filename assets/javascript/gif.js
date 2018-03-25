@@ -58,12 +58,14 @@ function renderButtons() {
         url: queryURL,
         method: "GET"
       }).then(function(response) {
-         var rating = response.data[0].rating;
-        var imageURL = response.data[0].images.downsized.url;
-        var gifImage = $("<img src='"+ imageURL +"'>")
-        console.log(imageURL)
-         $("#gifContainer").append("<p> Rating: " + rating + "</p>");
-         $("#gifContainer").append(gifImage);
+
+        for(j = 0; j < response.data.length; j++){
+            var rating = response.data[j].rating;
+            var imageURL = response.data[j].images.downsized.url;
+            var gifImage = $("<img src='"+ imageURL +"'>")
+            $("#gifContainer").append("<p> Rating: " + rating + "</p>");
+            $("#gifContainer").append(gifImage);
+        }
 
       })
 
