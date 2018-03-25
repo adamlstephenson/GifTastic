@@ -33,7 +33,7 @@ function buttonCreator() {
 
             for(j = 0; j < response.data.length; j++){
                 var rating = response.data[j].rating;
-                var imageURL = response.data[j].images.downsized.url;
+                var imageURL = response.data[j].images.downsized_still.url;
                 var gifImage = $("<img src='"+ imageURL +"'>")
                 $("#gifContainer").prepend("<p> Rating: " + rating + "</p>");
                 $("#gifContainer").prepend(gifImage);
