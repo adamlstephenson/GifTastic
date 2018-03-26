@@ -22,11 +22,11 @@ body {
 
 #navbar {
     background-color: lightgray;
-    margin-right: 25%;
     padding: 20px;
     border-style: solid;
     border-width: 1px;
     border-color: dimgray;
-    position: relative;
-    left: 210%;
+    margin-right: 75%;
+    margin-left: 1%;
+    margin-top: 2%;
 }
