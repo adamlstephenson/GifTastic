@@ -42,7 +42,19 @@ function buttonCreator() {
                 gifImageAnimate.attr("data-state", "animate");
                 $("#gifContainer").prepend("<p> Rating: " + rating + "</p>");
                 $("#gifContainer").prepend(gifImageStill);
-                animateGif();
+                $("img.gif").on("click", function() {
+                    var state = $(this).attr("data-state");
+                    console.log(state);
+                    if (state === "still") {
+                        $(this).attr("src", animateImageURL);
+                        $(this).attr("data-state", "animate");
+                      } else {
+                        $(this).attr("src", stillImageURL);
+                        $(this).attr("data-state", "still");
+                      }
+                
+                })
+
             }
 
         })
@@ -61,22 +73,7 @@ function buttonCreator() {
            $("#gifbuttons").append(newButton);
            buttonCreator();
     })
-}
-
-function animateGif() {
-    $("img.gif").on("click", function() {
-        var state = $(this).attr("data-state");
-        console.log(state);
-        if (state === "still") {
-            $(this).attr("src", $(this).attr("data-animate"));
-            $(this).attr("data-state", "animate");
-          } else {
-            $(this).attr("src", $(this).attr("data-still"));
-            $(this).attr("data-state", "still");
-          }
-    
-    })
-}
+ }
 
 
 renderButtons();
